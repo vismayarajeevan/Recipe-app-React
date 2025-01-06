@@ -15,17 +15,20 @@ import { showCardAPI } from '../services/allAPI'
 
 const Home = () => {
 
-// create state in parent and then we can use any other component through this state lifting
 
+
+// create state in parent and then we can use any other component through this state lifting
 const [addResponse , setAddResponse] =useState("")
 
+// create a state to delete recipecards
+const [deleteRecipeCard, setdeleteRecipecard] =useState("")
 
 
-  // we need to display cards initially when it already added .so use useeffect
-  
+
+  // we need to display cards initially when it already added .so use useeffect 
   useEffect(()=>{
       showCard()
-    },[addResponse])
+    },[addResponse,deleteRecipeCard])
     
     
     
@@ -36,7 +39,7 @@ const [addResponse , setAddResponse] =useState("")
     
     console.log(allRecipe);
     
-       // call the function to display card
+  // create a function to display card
        const showCard = async()=>{
         try {
           const result = await showCardAPI()
@@ -82,7 +85,8 @@ const [addResponse , setAddResponse] =useState("")
                   <Col key={recipe?.id} className='mb-3 p-4'>
 
                     {/* need to display cards details based on entered data. so use props to share data between components */}
-                     <DisplayCard displayData={recipe} />
+                    {/* delete function update state pass here */}
+                     <DisplayCard displayData={recipe} setdeleteRecipecard={setdeleteRecipecard}/>
                   </Col>
               
                 ))

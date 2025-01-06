@@ -2,11 +2,24 @@ import React from 'react'
 import {  Card, Col, Image, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
+import { removeRecipeAPI } from '../services/allAPI'
 
 
 
+const DisplayCard = ({displayData, setdeleteRecipecard}) => {
 
-const DisplayCard = ({displayData}) => {
+  // function to delete card
+
+  const deleteRecipeCard = async(id)=>{
+   try {
+    const result = await removeRecipeAPI(id)
+    setdeleteRecipecard(result)
+
+   } catch (error) {
+    console.log(error);
+    
+   }
+  }
   return (
     <>
        <Row>
@@ -24,7 +37,7 @@ const DisplayCard = ({displayData}) => {
             
              <div className='d-flex justify-content-between align items center'>
                <button style={{border:'none',background:'none'}}><i class="fa-regular fa-heart"></i></button>
-               <button style={{border:'none',background:'none'}}><i class="fa-regular fa-trash-can"></i></button>
+               <button onClick={()=>deleteRecipeCard(displayData?.id)} style={{border:'none',background:'none'}}><i class="fa-regular fa-trash-can"></i></button>
              </div>
              </Card.Body>
           </Card>

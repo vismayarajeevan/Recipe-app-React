@@ -18,3 +18,10 @@ export const saveRecipeAPI = async (recipeDetails)=>{
 export const showCardAPI = async()=>{
     return await commonAPI(`GET`,`${SERVERURL}/uploadRecipe`,"")
 }
+
+// 3. function to delete recipecard from home - delete method is used 
+  // called by display card.Done by using id 
+  
+  export const removeRecipeAPI =async (id)=>{
+   return await commonAPI(`DELETE`,`${SERVERURL}/uploadRecipe/${id}`,{})  //we need to delete that object so use {}
+  }
