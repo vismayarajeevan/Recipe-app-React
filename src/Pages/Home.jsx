@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import AddRecipe from '../components/AddRecipe'
 
@@ -7,11 +7,54 @@ import { Card, Col, Container, Row } from 'react-bootstrap'
 import DisplayCard from '../components/DisplayCard'
 import CategoryDisplay from '../components/CategoryDisplay'
 
+import { showCardAPI } from '../services/allAPI'
+
+
+
+
 
 const Home = () => {
+
+  
+      // we need to display cards initially when it already added .so use useeffect
+  
+  useEffect(()=>{
+      showCard()
+    },[])
+    
+    
+    
+    
+    // create a state to store data inside result
+    
+    const [allRecipe, setAllRecipe] =useState([])
+    
+    console.log(allRecipe);
+    
+       // call the function to display card
+       const showCard = async()=>{
+        try {
+          const result = await showCardAPI()
+          console.log(result);
+          if(result.status>=20 && result.status<300){
+            // update state with result data
+            setAllRecipe(result.data);
+            
+          }else{
+            console.log("API call failed");
+            
+          }
+          
+        } catch (error) {
+          console.log(error);
+          
+        }
+       }
+
+
   return (
 
-
+   
     <>
     <Header />
 
@@ -27,16 +70,22 @@ const Home = () => {
             </div >
 
             <Row xs={1} sm={2} md={2} lg={2} xl={2}  className='g-3'>
-              <Col className='mb-3'>
-              <DisplayCard />
-              </Col>
-              <Col className='mb-3'>
-              <DisplayCard />
-              </Col>
-              <Col>
-              <DisplayCard />
-              </Col>
-            </Row >
+              {
+                allRecipe?.length>0?(
+                allRecipe.map((recipe)=>(
+                  <Col key={recipe?.id} className='mb-3'>
+
+                    {/* need to display cards details based on entered data. so use props to share data between components */}
+                     <DisplayCard displayData={recipe} />
+                  </Col>
+              
+                ))
+               ) :(
+                <div className='text-secondary'>No recipes are uploaded!!</div>
+              )}
+            </Row > 
+
+       
 
           </Card>
           </Col>
