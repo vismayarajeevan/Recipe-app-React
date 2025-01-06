@@ -25,3 +25,20 @@ export const showCardAPI = async()=>{
   export const removeRecipeAPI =async (id)=>{
    return await commonAPI(`DELETE`,`${SERVERURL}/uploadRecipe/${id}`,{})  //we need to delete that object so use {}
   }
+
+
+// 4. Create and save new category - post method , called by category component
+   // when user clicked on add button in modal
+   
+   // category stored as object -it includes {categoryName, recipecard}
+   export const createAndSaveCategoryAPI = async(categoryDetails)=>{
+      return await commonAPI('POST',`${SERVERURL}/categories`,categoryDetails)
+   }
+
+
+// 5.function to display category name. - get method is used
+   // called by category component, when component loaded in browser
+
+export const getCategoryAPI = async()=>{
+   return await commonAPI('GET',`${SERVERURL}/categories`,{})
+}

@@ -15,7 +15,8 @@ import { showCardAPI } from '../services/allAPI'
 
 const Home = () => {
 
-
+ // state to get category
+  const [getAllCategories, setGetAllCategories] = useState([])
 
 // create state in parent and then we can use any other component through this state lifting
 const [addResponse , setAddResponse] =useState("")
@@ -64,12 +65,14 @@ const [deleteRecipeCard, setdeleteRecipecard] =useState("")
 
    
     <>
-    <Header />
+       <Header />
 
-   <div style={{backgroundColor: '#f7f7f7'}}>
+       <div style={{backgroundColor: '#f7f7f7'}}>
 
-      <Container className='py-5'>
+        <Container className='py-5'>
+
          <Row className='g-4'>
+
           <Col lg={6}>
           <Card className='p-3 border-0 shadow-sm'>
             <div className='d-flex justify-content-between align-items-center mb-5'>
@@ -88,50 +91,33 @@ const [deleteRecipeCard, setdeleteRecipecard] =useState("")
                     {/* delete function update state pass here */}
                      <DisplayCard displayData={recipe} setdeleteRecipecard={setdeleteRecipecard}/>
                   </Col>
-              
                 ))
                ) :(
                 <div className='text-secondary'>No recipes are uploaded!!</div>
               )}
             </Row > 
-
-       
-
           </Card>
           </Col>
+
 
           <Col lg={6}>
           <Card className='p-3 border-0 shadow-sm'>
           <div className='d-flex justify-content-between align-items-center mb-3'>
                  <h2>Categories</h2>
-                 <Category />
+                 <Category setGetAllCategories={setGetAllCategories} />
             </div>
 
-            <div>
-             <Row className='g-4 mb-3'> 
+            <div> 
+              <Row className='g-4 mb-3'> 
               <Col>
-                <CategoryDisplay /> 
+                <CategoryDisplay getAllCategories={getAllCategories} /> 
               </Col>
-             </Row>
-             <Row className='g-4 mb-3'> 
-              <Col>
-                <CategoryDisplay /> 
-              </Col>
-             </Row>
-
-
-            
-              
-
-
-              
-              
+             </Row>            
             </div>
           </Card>
           </Col>
-
-  
          </Row>
+         
       </Container>
    </div>
     </>
