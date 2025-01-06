@@ -15,12 +15,17 @@ import { showCardAPI } from '../services/allAPI'
 
 const Home = () => {
 
-  
-      // we need to display cards initially when it already added .so use useeffect
+// create state in parent and then we can use any other component through this state lifting
+
+const [addResponse , setAddResponse] =useState("")
+
+
+
+  // we need to display cards initially when it already added .so use useeffect
   
   useEffect(()=>{
       showCard()
-    },[])
+    },[addResponse])
     
     
     
@@ -66,14 +71,15 @@ const Home = () => {
           <Card className='p-3 border-0 shadow-sm'>
             <div className='d-flex justify-content-between align-items-center mb-5'>
                  <h2>My Recipes</h2>
-                 <AddRecipe/>
+                 {/* updation done in add */}
+                 <AddRecipe  setAddResponse={setAddResponse}/>
             </div >
 
             <Row xs={1} sm={2} md={2} lg={2} xl={2}  className='g-3'>
               {
                 allRecipe?.length>0?(
                 allRecipe.map((recipe)=>(
-                  <Col key={recipe?.id} className='mb-3'>
+                  <Col key={recipe?.id} className='mb-3 p-4'>
 
                     {/* need to display cards details based on entered data. so use props to share data between components */}
                      <DisplayCard displayData={recipe} />
@@ -125,44 +131,6 @@ const Home = () => {
       </Container>
    </div>
     </>
-
-
-    // <div style={{backgroundColor: '#f7f7f7',height:'auto'}}>
-    //   <Header />
-
-    //   <div className='container-fluid row' style={{padding:"100px"}}>
-    //      <div> 
-    //         <AddRecipe/>
-    //         </div>
-    //         <div className='container-fluid my-5 row'>
-    //        <div className='col-lg-6'>
-    //        <h1 style={{fontSize:'25px',fontWeight:'bolder', marginBottom:'50px'}}>My Recipes</h1>
-    //        <View />
-    //       </div>
-    //       {/* <div className='col-lg-6'>
-    //         <Category />
-    //       </div> */}
-        
-
-    //    </div>
-
-         
-// {/*         
-
-
-//        <div className='container-fluid my-5 row'>
-//         <div className='col-lg-6'>
-//            <h1 style={{fontSize:'30px', marginBottom:'50px'}}>My Recipes</h1>
-//            <View />
-//         </div>
-//         <div className='col-lg-6'>
-           
-//         </div>
-        
-
-//        </div> */}
-    //   </div>
-    // </div>
   )
 }
 

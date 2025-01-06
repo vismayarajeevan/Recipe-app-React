@@ -16,7 +16,7 @@ const DisplayCard = ({displayData}) => {
           <Link to={'/details'}>
           <div><img src={displayData?.image}
             alt=""
-            className=" img-fluid object-cover"  style={{width:'100%', height:'280px'}}
+            className=" img-fluid object-cover"  style={{width:'100%', height:'250px'}}
             fluid
           /></div></Link>
           <Card.Body>

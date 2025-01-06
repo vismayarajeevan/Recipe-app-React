@@ -5,7 +5,7 @@ import { saveRecipeAPI } from '../services/allAPI';
 
 
 
-const AddRecipe = () => {
+const AddRecipe = ({setAddResponse}) => {
   
 
   // state to take values from modal
@@ -57,7 +57,7 @@ const extractEmbedLinkFromYoutube = (userInputYoutubeLink)=>{
 
 // function to upload recipe
 
-const uploadRecipe = async()=>{
+ const uploadRecipe = async()=>{
   // object destructuring
   const {name, image , youtubeLink , ingredients , instructions} = recipeDetails
   if(name && image && youtubeLink && ingredients && instructions ){
@@ -68,9 +68,11 @@ const uploadRecipe = async()=>{
     console.log(result);
 
     if(result.status >=200 && result.status<300){
-      handleClose()
+  
       alert("Recipe added successfully!!!")
-     
+      handleClose()
+      // pass the result
+      setAddResponse(result)
     }else{
       console.log(result);
       
@@ -80,10 +82,8 @@ const uploadRecipe = async()=>{
     console.log(error);
     
    }
-    
-
   }else{
-    alert("Please fill all tthe fields!!!")
+    alert("Please fill all the fields!!!")
   }
 }
 
@@ -120,7 +120,7 @@ const uploadRecipe = async()=>{
 
              <Form.Group controlId="formImage" className="mb-2">
                <Form.Label>Upload Image</Form.Label>
-               <Form.Control onChange={handleChange} name='image'  type="url" />  
+               <Form.Control onChange={handleChange}  name='image'  type="url" />  
              </Form.Group>
 
              <Form.Group controlId="formYoutubeLink" className="mb-2">

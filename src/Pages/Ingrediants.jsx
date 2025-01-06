@@ -8,6 +8,8 @@ const Ingrediants = () => {
     <>
       <Header />
 
+      
+
       <div style={{ backgroundColor: "#f7f7f7", height: "90vh" }}>
         <Container style={{ paddingTop: "80px" }}>
           <Row className="gy-4">
@@ -16,7 +18,7 @@ const Ingrediants = () => {
                 <iframe
                   width="100%"
                   height="360"
-                  src="https://www.youtube.com/embed/DbUNJvXjpA8"
+                  src="https://www.youtube.com/embed/DbUNJvXjpA8?autoplay=1"
                   title="How Millions of Cakes Are Made in a Factory | Automatic Cakes Factory Process"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerpolicy="strict-origin-when-cross-origin"
