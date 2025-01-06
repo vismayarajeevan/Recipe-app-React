@@ -2,21 +2,34 @@ import React from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import DisplayCard from "./DisplayCard";
 
+import { deleteCategoryAPI  } from '../services/allAPI'
+
 const CategoryDisplay = ({ getAllCategories }) => {
+
+   const removeCategory = async(id)=>{
+      try {
+         const result = await deleteCategoryAPI(id)
+         getAllCategories()
+      } catch (error) {
+         console.log(error);
+         
+      }
+   }
+
   return (
     <>
 
     {
       getAllCategories?.length>0? (
          getAllCategories.map((category, index)=>(
-            <Row className="mb-4">
+            <Row key={index} className="mb-4">
             <Col >
             <Card  className="bg-light p-4 rounded min-vh-200">
               <div className="d-flex justify-content-between align items center">
                 <Card.Title as="h3" className="text-lg font-semibold mb-3">
                   {category.categoryName}
                 </Card.Title>
-                <button style={{ border: "none", background: "none" }}>
+                <button onClick={()=>removeCategory(category?.id)} style={{ border: "none", background: "none" }}>
                   <i class="fa-regular fa-trash-can"></i>
                 </button>
               </div>
@@ -47,7 +60,7 @@ const CategoryDisplay = ({ getAllCategories }) => {
 
    }
      
-     
+
     </>
   );
 };
