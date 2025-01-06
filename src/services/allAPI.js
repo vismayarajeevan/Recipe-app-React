@@ -43,7 +43,7 @@ export const getCategoryAPI = async()=>{
    return await commonAPI('GET',`${SERVERURL}/categories`,{})
 }
 
-// 3. function to delete category from home - delete method is used 
+// 6. function to delete category from home - delete method is used 
   // called by category display component, when click on delete button.Done by using id 
   
   export const deleteCategoryAPI =async (id)=>{
