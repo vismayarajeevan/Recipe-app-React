@@ -8,6 +8,9 @@ import DisplayCard from '../components/DisplayCard'
 import CategoryDisplay from '../components/CategoryDisplay'
 
 import { showCardAPI } from '../services/allAPI'
+import { createAndSaveCategoryAPI  } from '../services/allAPI'
+import { getCategoryAPI  } from '../services/allAPI'
+import { deleteCategoryAPI  } from '../services/allAPI'
 
 
 
@@ -18,17 +21,18 @@ const Home = () => {
  // state to get category
   const [getAllCategories, setGetAllCategories] = useState([])
 
-// create state in parent and then we can use any other component through this state lifting
-const [addResponse , setAddResponse] =useState("")
+ // create state in parent and then we can use any other component through this state lifting
+ const [addResponse , setAddResponse] =useState("")
 
-// create a state to delete recipecards
-const [deleteRecipeCard, setdeleteRecipecard] =useState("")
+ // create a state to delete recipecards
+  const [deleteRecipeCard, setdeleteRecipecard] =useState("")
 
 
 
   // we need to display cards initially when it already added .so use useeffect 
   useEffect(()=>{
-      showCard()
+      showCard();
+      displayAllCategories()
     },[addResponse,deleteRecipeCard])
     
     
@@ -59,6 +63,53 @@ const [deleteRecipeCard, setdeleteRecipecard] =useState("")
           
         }
        }
+
+
+       // create a function to show categories
+       const displayAllCategories =async()=>{
+        try {
+          const result = await getCategoryAPI()
+          if(result.status>=200 && result.status<300){
+            // update the state
+              setGetAllCategories(result.data)
+          }
+        } catch (error) {
+          console.log(error);
+          
+        }
+      }
+
+        // create a function to add category name
+           const addCategory =async(categorydetails)=>{
+             
+       
+                try {
+                 const result = await createAndSaveCategoryAPI(categorydetails)
+                 if (result.status >= 200 && result.status < 300) {
+                  await displayAllCategories(); // Refresh categories after adding
+                  alert("Category created!");
+                 }
+                } catch (error) {
+                 console.log(error);
+                 
+                }
+            
+           }
+
+          //  function to delele category
+           const removeCategory = async(id)=>{
+                 try {
+                    const result = await deleteCategoryAPI(id)
+                    if (result.status >= 200 && result.status < 300) {
+                      await displayAllCategories(); // Refresh categories after deleting
+                      alert("Category deleted!");
+                    }
+                 } catch (error) {
+                    console.log(error);
+                    
+                 }
+              }
+
 
 
   return (
@@ -104,13 +155,13 @@ const [deleteRecipeCard, setdeleteRecipecard] =useState("")
           <Card className='p-3 border-0 shadow-sm'>
           <div className='d-flex justify-content-between align-items-center mb-3'>
                  <h2>Categories</h2>
-                 <Category setGetAllCategories={setGetAllCategories} />
+                 <Category addCategory={addCategory} />
             </div>
 
             <div> 
               <Row className='g-4 mb-3'> 
               <Col>
-                <CategoryDisplay getAllCategories={getAllCategories} /> 
+                <CategoryDisplay getAllCategories={getAllCategories} removeCategory={removeCategory} /> 
               </Col>
              </Row>            
             </div>

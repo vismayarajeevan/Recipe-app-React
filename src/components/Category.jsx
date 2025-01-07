@@ -1,13 +1,12 @@
 import { PlusCircle } from 'lucide-react';
-import React, { useEffect, useState } from 'react'
-import { Button, Card, Col, Form, Modal, Row } from 'react-bootstrap';
-
-import { createAndSaveCategoryAPI  } from '../services/allAPI'
-import { getCategoryAPI  } from '../services/allAPI'
+import React, {  useState } from 'react'
+import { Button, Form, Modal } from 'react-bootstrap';
 
 
 
-const Category = ({setGetAllCategories}) => {
+
+
+const Category = ({addCategory}) => {
 
   // state to hold the categories
   const [categoryName, setCategoryName] = useState("")
@@ -20,47 +19,21 @@ const Category = ({setGetAllCategories}) => {
     const handleShow = () => setShow(true);
 
 
+
     // create a function to save category name
-    const saveCategory =async()=>{
+     const saveCategory =()=>{
       if(categoryName){
         // we need to save as object . create an object to store name and cards
          const categorydetails ={categoryName, allRecipes:[]}
-
-         try {
-          const result = await createAndSaveCategoryAPI(categorydetails)
-          alert("Category created")
-          // call the get recipedetails to show at the time of add
-          setGetAllCategories()
-          handleClose()
-         } catch (error) {
-          console.log(error);
-          
-         }
+         addCategory(categorydetails); // Call the parent function
+         handleClose()
+         
       }else{
         alert("Please provide category name!!")
       }
     }
 
-    // create a function to show categories
-    const displayAllCategories =async()=>{
-      try {
-        const result = await getCategoryAPI()
-        if(result.status>=200 && result.status<300){
-          // update the state
-            setGetAllCategories(result.data)
-        }
-      } catch (error) {
-        console.log(error);
-        
-      }
-    }
-   
-    
-    
-
-    useEffect(()=>{
-      displayAllCategories()
-    })
+  
 
   return (
 

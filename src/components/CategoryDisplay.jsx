@@ -2,19 +2,11 @@ import React from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import DisplayCard from "./DisplayCard";
 
-import { deleteCategoryAPI  } from '../services/allAPI'
 
-const CategoryDisplay = ({ getAllCategories }) => {
 
-   const removeCategory = async(id)=>{
-      try {
-         const result = await deleteCategoryAPI(id)
-         getAllCategories()
-      } catch (error) {
-         console.log(error);
-         
-      }
-   }
+const CategoryDisplay = ({ getAllCategories, removeCategory }) => {
+
+ 
 
   return (
     <>
