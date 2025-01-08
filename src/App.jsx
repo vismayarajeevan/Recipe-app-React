@@ -9,7 +9,7 @@ import Favourite from './Pages/Favourite'
 import Ingrediants from './Pages/Ingrediants'
 
 function App() {
-  const [count, setCount] = useState(0)
+  
 
   return (
     <>

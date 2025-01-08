@@ -1,9 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 
 
 const Favourite = () => {
+
+  // create a state to store wishlist 
+  const [wishlist, setWishlist] = useState([])
+
+  useEffect(()=>{
+    
+  // need to take wishlist from localstorage
+    const storeWishlist = JSON.parse(localStorage.getItem('wishlist')) || []
+    // update wishlist with taken data
+    setWishlist(storeWishlist)
+
+  },[])
+
+  // function to remove from wishlist
+  const removeFromWishlist =(id)=>{
+    const updatedWishlist = wishlist.filter(item=>item.id!==id)
+    setWishlist(updatedWishlist)
+    // update localstorage
+    localStorage.setItem('wishlist', JSON.stringify(updatedWishlist))
+  }
+
+ 
+
   return (
     <>
       <Header />
@@ -21,15 +44,18 @@ const Favourite = () => {
       
           <Row xs={1} sm={2} md={3} lg={4} xl={4}>
             {/* repeat ol for cards */}
-            <Col>
+            {
+              wishlist.map((item)=>(
+                <Col key={item?.id}>
               <Card className="border-0 shadow-sm rounded overflow-hidden transition-transform hover-scale" style={{ width: "100%" }} >
                 <div className="position-relative">
                   <Card.Img
-                    src="https://www.giverecipe.com/wp-content/uploads/2020/06/Chocolate-Strawberry-Cake.jpg"
+                    src={item?.image}
                     alt=""
                     style={{ height: "12rem", objectFit: "cover" }}
                   />
                   <Button
+                    onClick={()=>removeFromWishlist(item?.id)}
                     variant="light"
                     className="position-absolute top-0 end-0 m-3 p-2 rounded-circle shadow-sm"
                     style={{ backgroundColor: "#fff"}}
@@ -40,13 +66,15 @@ const Favourite = () => {
                 </div>
 
                 <Card.Body>
-                  <Card.Title className="mb-2 text-dark">Cake</Card.Title>
-                  <Card.Text className="text-muted mb-3">Cuisine</Card.Text>
+                  <Card.Title className="mb-2 text-dark">{item?.name}</Card.Title>
+                  
                   
                 </Card.Body>
               </Card>
             </Col>
 
+              ))
+            }
            
 
           </Row>
