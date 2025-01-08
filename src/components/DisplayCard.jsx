@@ -26,7 +26,8 @@ const DisplayCard = ({displayData, setdeleteRecipecard}) => {
          
           <Col>
           <Card className='bg-white rounded shadow-sm border-0'  style={{ width: '100%', height: '100%' }}>
-          <Link to={'/details'}>
+          <Link to="/details" state={{ recipeDetails: displayData }}>
+
           <div><img src={displayData?.image}
             alt=""
             className=" img-fluid object-cover"  style={{width:'100%', height:'250px'}}

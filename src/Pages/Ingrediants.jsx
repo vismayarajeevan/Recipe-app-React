@@ -1,10 +1,19 @@
 import React from "react";
 import Header from "../components/Header";
 import { Card, Col, Container, Row } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
 
 
 const Ingrediants = () => {
+
+  const location = useLocation()
+  const {recipeDetails} = location.state || {}
+
+  if(!recipeDetails){
+    return <div className="m-2 fs-5"> No recipe details available......</div>;
+  }
   return (
+
     <>
       <Header />
 
@@ -18,7 +27,7 @@ const Ingrediants = () => {
                 <iframe
                   width="100%"
                   height="360"
-                  src="https://www.youtube.com/embed/DbUNJvXjpA8?autoplay=1"
+                  src={recipeDetails.youtubeLink}
                   title="How Millions of Cakes Are Made in a Factory | Automatic Cakes Factory Process"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerpolicy="strict-origin-when-cross-origin"
@@ -35,30 +44,29 @@ const Ingrediants = () => {
 
                    <div style={{ flex: 2, paddingRight: "20px" }}>
                       <Card.Title className="mb-3">
-                        <h1 className="fw-bold fs-2">Recipe name</h1>
+                        <h1 className="fw-bold fs-2">{recipeDetails.name}</h1>
                       </Card.Title>
             
                       <div className="mb-4">
                         <h5 className ="fw-semibold">Ingredients</h5>
                         <ul className="text-secondary">
-                          <li>Ingredient one</li>
-                          <li>Ingredient two</li>
+                          {
+                            recipeDetails.ingredients.split(",").map((item, index)=>(
+                              <li key={index}>{item.trim()}</li>
+                            ))
+                          }
                         </ul>
                       </div>
                       <div>
                         <h5 className ="fw-semibold">Instructions</h5>
-                        <Card.Text className="text-muted">Gather all ingredients. Preheat the oven to 350 degrees F (175 degrees C). Grease and flour a 9-inch square cake pan.
-
-                        Cream sugar and butter together in a mixing bowl. Add eggs, one at a time, beating briefly after each addition. Mix in vanilla.Combine flour and baking powder in a separate bowl. Add to the wet ingredients and mix well. Add milk and stir until smooth.
-
-                        Pour batter into the prepared cake pan.Bake in the preheated oven until the top springs back when lightly touched, 30 to 40 minutes.</Card.Text>
+                        <Card.Text className="text-muted">{recipeDetails.instructions}</Card.Text>
   
                    </div>
                       
                     </div>
 
                     <div style={{ flex: 1 , marginTop:'10px'}}>
-              <img src="https://www.giverecipe.com/wp-content/uploads/2020/06/Chocolate-Strawberry-Cake.jpg" alt="Featured" className="img-fluid rounded"
+              <img src={recipeDetails.image} alt="Featured" className="img-fluid rounded"
               />
             </div>
                   </Card.Body>
