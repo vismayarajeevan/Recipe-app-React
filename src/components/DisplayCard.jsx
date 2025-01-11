@@ -6,12 +6,10 @@ import { addToFavoriteAPI, fetchWishlist, removeFromFavoriteAPI, removeRecipeAPI
 
 
 
-const DisplayCard = ({displayData, setdeleteRecipecard}) => {
+const DisplayCard = ({displayData, setdeleteRecipecard,isInCategory}) => {
 
   // // create a state to check the recipe is already in favourite or not
   const [isInWishlist, setIsInWishlist] = useState(false)
-
- 
 
 
   // function to check the item is already in wishlist or not
@@ -44,16 +42,9 @@ const DisplayCard = ({displayData, setdeleteRecipecard}) => {
   };
 
   
-
-
-   
    useEffect(() => {
     checkFavourite()
     }, [displayData.id, isInWishlist]);
-
-   
-
-
 
 
   // function to delete card
@@ -64,18 +55,34 @@ const DisplayCard = ({displayData, setdeleteRecipecard}) => {
     await removeFromFavoriteAPI(id);
     const result = await removeRecipeAPI(id)
     setdeleteRecipecard(result)
+   
 
    } catch (error) {
     console.log(error);
     
    }
   }
+
+  // function to drag card 
+   const recipeCardStarted =(e, dragRecicpeDetails)=>{
+      console.log("Inside recipeCardDragstarted with cardid:" + dragRecicpeDetails?.id);
+      // pass video details to card
+      // share data using event drag start
+      // dragrecipe details is an object, we need to convert it to string. for that use json.stringify
+      e.dataTransfer.setData("recipeDetails", JSON.stringify(dragRecicpeDetails))
+      
+   }
+
+
+
+
   return (
     <>
        <Row>
          
           <Col>
-          <Card className='bg-white rounded shadow-sm border-0'  style={{ width: '100%', height: '100%' }}>
+          {/* drag and drop */}
+          <Card draggable={true} onDragStart={(e)=>recipeCardStarted(e,displayData)} className='bg-white rounded shadow-sm border-0'  style={{ width: '100%', height: '100%' }}>
           <Link to="/details" state={{ recipeDetails: displayData }}>
 
           <div><img src={displayData?.image}
@@ -89,7 +96,14 @@ const DisplayCard = ({displayData, setdeleteRecipecard}) => {
              <div className='d-flex justify-content-between align items center'>
                <button onClick={toggleFavorite} style={{border:'none',background:'none'}}><i className={`fa-${isInWishlist ? 'solid' : 'regular'} fa-heart`}
                     style={{ color: isInWishlist ? 'red' : 'inherit' }}></i></button>
-               <button onClick={()=>deleteRecipeCard(displayData?.id)} style={{border:'none',background:'none'}}><i class="fa-regular fa-trash-can"></i></button>
+                     {/* Conditionally render delete button */}
+              {!isInCategory && (
+                <button onClick={deleteRecipeCard} style={{ border: 'none', background: 'none' }}>
+                  <i className="fa-regular fa-trash-can"></i>
+                </button>
+              )}
+               88
+              
              </div>
              </Card.Body>
           </Card>

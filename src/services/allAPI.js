@@ -70,3 +70,9 @@ export const addToFavoriteAPI =async(item)=>{
 export const removeFromFavoriteAPI = async (id)=>{
    return await commonAPI('DELETE',`${SERVERURL}/favourites/${id}`,{})
 }
+
+//10. update category - PUT method
+// used by categorydisplay, when video dropover the category
+export const updateCategoryAPI = async (categoryDetails)=>{
+   return await commonAPI('PUT',`${SERVERURL}/categories/${categoryDetails.id}`,categoryDetails)
+}

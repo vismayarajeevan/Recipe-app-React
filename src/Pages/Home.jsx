@@ -27,13 +27,16 @@ const Home = () => {
  // create a state to delete recipecards
   const [deleteRecipeCard, setdeleteRecipecard] =useState("")
 
+  // state to delete from my recipe
+  const [deleteResponseFromCategory, setDeleteResponseFromCategory]=useState("")
+
 
 
   // we need to display cards initially when it already added .so use useeffect 
   useEffect(()=>{
       showCard();
       displayAllCategories()
-    },[addResponse,deleteRecipeCard])
+    },[addResponse,deleteRecipeCard,deleteResponseFromCategory])
     
     
     
@@ -112,6 +115,7 @@ const Home = () => {
 
 
 
+
   return (
 
    
@@ -140,7 +144,7 @@ const Home = () => {
 
                     {/* need to display cards details based on entered data. so use props to share data between components */}
                     {/* delete function update state pass here */}
-                     <DisplayCard displayData={recipe} setdeleteRecipecard={setdeleteRecipecard}/>
+                     <DisplayCard displayData={recipe} setdeleteRecipecard={setdeleteRecipecard} />
                   </Col>
                 ))
                ) :(
@@ -161,7 +165,7 @@ const Home = () => {
             <div> 
               <Row className='g-4 mb-3'> 
               <Col>
-                <CategoryDisplay getAllCategories={getAllCategories} removeCategory={removeCategory} /> 
+                <CategoryDisplay getAllCategories={getAllCategories} removeCategory={removeCategory} setDeleteResponseFromCategory={setDeleteResponseFromCategory} /> 
               </Col>
              </Row>            
             </div>
