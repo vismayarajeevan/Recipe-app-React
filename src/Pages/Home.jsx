@@ -49,7 +49,7 @@ const Home = () => {
         try {
           const result = await showCardAPI()
           console.log(result);
-          if(result.status>=20 && result.status<300){
+          if(result.status>=200 && result.status<300){
             // update state with result data
             setAllRecipe(result.data);
             

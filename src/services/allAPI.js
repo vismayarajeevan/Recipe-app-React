@@ -49,3 +49,24 @@ export const getCategoryAPI = async()=>{
   export const deleteCategoryAPI =async (id)=>{
    return await commonAPI(`DELETE`,`${SERVERURL}/categories/${id}`,{})  //we need to delete that object so use {}
   }
+
+//7.   function to add to add to wishlist. first fetch the list , ie, fetch details - get method
+// used by display card
+
+export const fetchWishlist= async()=>{
+   return await commonAPI('GET', `${SERVERURL}/favourites`,{})
+}
+
+// 8. function to add items to favorite- post method is used.
+// used by displaycard
+
+export const addToFavoriteAPI =async(item)=>{
+   return await commonAPI('POST',`${SERVERURL}/favourites`,item)
+}
+
+// 9. function to remove item from cart - delete method
+// used by favorite
+
+export const removeFromFavoriteAPI = async (id)=>{
+   return await commonAPI('DELETE',`${SERVERURL}/favourites/${id}`,{})
+}

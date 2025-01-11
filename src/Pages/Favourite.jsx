@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { fetchWishlist, removeFromFavoriteAPI } from "../services/allAPI";
 
 
 const Favourite = () => {
@@ -8,22 +9,51 @@ const Favourite = () => {
   // create a state to store wishlist 
   const [wishlist, setWishlist] = useState([])
 
+  // function to fetch details
+
+  const fetchFavourite = async () => {
+    try {
+      const response = await fetchWishlist();
+      if (response.status >= 200 && response.status < 300) {
+        setWishlist(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+
   useEffect(()=>{
     
-  // need to take wishlist from localstorage
-    const storeWishlist = JSON.parse(localStorage.getItem('wishlist')) || []
-    // update wishlist with taken data
-    setWishlist(storeWishlist)
+    fetchFavourite()
 
   },[])
 
   // function to remove from wishlist
-  const removeFromWishlist =(id)=>{
-    const updatedWishlist = wishlist.filter(item=>item.id!==id)
-    setWishlist(updatedWishlist)
-    // update localstorage
-    localStorage.setItem('wishlist', JSON.stringify(updatedWishlist))
-  }
+  
+  const removeFromFavorite = async (id) => {
+    try {
+      // Optimistically update the state to remove the item immediately
+      setWishlist((prev) => prev.filter((item) => item.id !== id));
+  
+      // Make the API call to remove from favorites
+      const response = await removeFromFavoriteAPI(id);
+  
+      if (response.status >= 200 && response.status < 300) {
+        // Successfully deleted, no further action needed
+        alert("Item successfully removed from favorites!")
+      } else {
+        console.log("Error deleting from favorites");
+        // If deletion fails, refetch the wishlist to ensure data consistency
+    
+      }
+    } catch (error) {
+      console.error("Error removing from favorites:", error);
+      // In case of an error, re-fetch the wishlist
+      
+    }
+  };
+  
 
  
 
@@ -41,8 +71,10 @@ const Favourite = () => {
           <h3 style={{ fontWeight: "bold" }}>My Favorites</h3>
         </div>
 
-      
-          <Row xs={1} sm={2} md={3} lg={4} xl={4}>
+        {
+          wishlist?.length>0? (
+            
+            <Row xs={1} sm={2} md={3} lg={4} xl={4}>
             {/* repeat ol for cards */}
             {
               wishlist.map((item)=>(
@@ -55,7 +87,7 @@ const Favourite = () => {
                     style={{ height: "12rem", objectFit: "cover" }}
                   />
                   <Button
-                    onClick={()=>removeFromWishlist(item?.id)}
+                    onClick={()=>removeFromFavorite(item?.id)}
                     variant="light"
                     className="position-absolute top-0 end-0 m-3 p-2 rounded-circle shadow-sm"
                     style={{ backgroundColor: "#fff"}}
@@ -75,9 +107,20 @@ const Favourite = () => {
 
               ))
             }
+              </Row>
+            ) : (
            
+            <div className="text-center mt-5">
+              <h5 className="text-muted">Your favorites list is empty.</h5>
+              <p>Add items to your favorites to see them here.</p>
+            </div>
+           )
+          
+        }
+      
+          
 
-          </Row>
+        
         </Container>
       </div>
     </>

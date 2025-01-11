@@ -17,7 +17,7 @@ const Header = () => {
           <Nav className="ms-auto d-flex gap-3">
             <Nav.Link  href="#home" style={{color:'black'}} ><Link to={'/home'} style={{textDecoration:'none', color:'black'}}><i class="fa-solid fa-house me-2"></i>Home</Link></Nav.Link>
             <Nav.Link href='#link'><Link to={'/details'} style={{textDecoration:'none', color:'black'}}><i class="fa-solid fa-folder-open me-2"></i>Details</Link></Nav.Link>
-            <Nav.Link href="#link"><Link to={'/favourite'} style={{textDecoration:'none', color:'black'}}><i class="fa-regular fa-heart me-2"></i>Favorites</Link></Nav.Link>    
+            <Nav.Link href="#link"><Link to={'/favourite'} style={{textDecoration:'none', color:'black'}}><i class="fa-solid fa-heart me-2"></i>Favorites</Link></Nav.Link>    
           </Nav>
         </Navbar.Collapse>
       </Container>
