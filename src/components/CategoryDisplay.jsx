@@ -15,14 +15,15 @@ const dragPreventFault =(e)=>{
 //  function to drop details of card
 const recipeCardDrop = async(e,categoryDropDetails)=>{
   e.preventDefault();
-  
+  // console.log("Inside recipeCardDrop");
+  // console.log(categoryDropDetails);
   // convert data to original form
   const getRecipeDetails= JSON.parse(e.dataTransfer.getData("recipeDetails"))
   console.log(getRecipeDetails);
   
   // update category by add recipe to allRecipes
   categoryDropDetails.allRecipes.push(getRecipeDetails)
-  
+  console.log(categoryDropDetails);
   
   // to store data permanently, make api call- for update
   await updateCategoryAPI(categoryDropDetails)
@@ -36,7 +37,29 @@ const recipeCardDrop = async(e,categoryDropDetails)=>{
 }
 
 
+  // Function to delete recipe from category
+  const deleteRecipeFromCategory = async (recipeId, categoryId) => {
+    try {
+      // Remove recipe from category
+      const updatedCategory = getAllCategories.map(category => {
+        if (category.id === categoryId) {
+          category.allRecipes = category.allRecipes.filter(recipe => recipe.id !== recipeId);
+        }
+        return category;
+      });
 
+      // Update the category after removal
+      await updateCategoryAPI(updatedCategory.find(category => category.id === categoryId));
+
+      // Remove recipe completely from the system
+      await removeRecipeAPI(recipeId);
+
+      // Trigger state update to re-render
+      setDeleteResponseFromCategory(`Recipe with ID: ${recipeId} removed from category.`);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
 
   return (
@@ -65,7 +88,7 @@ const recipeCardDrop = async(e,categoryDropDetails)=>{
                         category.allRecipes.map((recipe, recipeIndex)=>(
                           // to drop card from my recipes, use event ondrop
                            <Col  key={recipeIndex} className="mb-5">
-                          <DisplayCard displayData={recipe}  isInCategory={true}/>
+                          <DisplayCard displayData={recipe} deleteRecipeFromCategory={deleteRecipeFromCategory} isInCategory={true}/>
                         </Col>
                         ))
                      ) : (

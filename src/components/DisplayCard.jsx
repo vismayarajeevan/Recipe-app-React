@@ -98,11 +98,11 @@ const DisplayCard = ({displayData, setdeleteRecipecard,isInCategory}) => {
                     style={{ color: isInWishlist ? 'red' : 'inherit' }}></i></button>
                      {/* Conditionally render delete button */}
               {!isInCategory && (
-                <button onClick={deleteRecipeCard} style={{ border: 'none', background: 'none' }}>
+                <button onClick={() => deleteRecipeCard(displayData.id)} style={{ border: 'none', background: 'none' }}>
                   <i className="fa-regular fa-trash-can"></i>
                 </button>
               )}
-               88
+               
               
              </div>
              </Card.Body>
