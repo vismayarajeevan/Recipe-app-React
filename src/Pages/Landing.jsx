@@ -15,83 +15,32 @@ const Landing = () => {
   return (
    <>
      
+     <div style={{minHeight:'100vh'}} className='d-flex justify-content-center align-items-center rounded shadow w-100'>
+        <div className='container'>
+           <div className='row align-items-center'>
+            <div className='col-lg-6 col-md-6 col-12 text-center text-md-start' >
+            <ChefHat className="mb-2" style={{ width: '64px', height: '64px', color: 'rgb(237, 140, 31)', }}/>
+              <h1 className='mb-4' style={{fontSize:'2rem',fontWeight: 'bold'}}>Recipe Master</h1>
+              <p className='mb-4' style={{textAlign:'justify'}}>Discover your ultimate recipe management solution! Effortlessly create,
+                 organize, and explore amazing recipes all in one place. Whether you're a
+                  seasoned chef or a kitchen novice, streamline your cooking journey with
+                  tools to save favorites, plan meals, and unleash your culinary creativity.
+                  Cooking made simple and enjoyable!</p>
+              <Link to={'/home'} className="btn" style={{ backgroundColor: 'rgb(237, 140, 31)', marginTop: '15px', padding: '0.55rem 2rem', color: 'white',
+        fontSize: '1rem',fontWeight: 'bold',cursor: 'pointer', transition: 'background-color 0.3s ease', width: 'fit-content',}}> Get Started</Link>
+            </div>
+
+          <div className="col-lg-6 col-md-6 d-none d-md-block ">
+              <img className="img-fluid" src={landing_img} alt="landing" style={{ marginTop: '50px', float: 'right' }}/>
+          </div>
 
 
 
-<div className="main min-vh-100 d-flex flex-column flex-md-row" style={{  position: 'relative', flexWrap: 'wrap',overflow: 'hidden' }}>
-  <div className="header d-flex flex-column justify-content-center" style={{flex: 1,paddingLeft: '5rem',marginTop:'-200px',
-      minWidth: '300px', // Ensure the header doesn't shrink too much
-    }}
-  >
-    <ChefHat className="mb-2"
-      style={{ width: '64px', height: '64px', color: 'rgb(237, 140, 31)', }}
-    />
-    <h1 className="header-title" style={{ fontSize: '2rem', fontWeight: 'bold' }}>Recipe Master</h1>
-    <p
-      className="header-description"
-      style={{
-        fontSize: '1rem',
-        color: '#666',
-        margin: '1rem 0',
-      }}
-    >
-      Discover your ultimate recipe management solution! Effortlessly create,
-      organize, and explore amazing recipes all in one place. Whether you're a
-      seasoned chef or a kitchen novice, streamline your cooking journey with
-      tools to save favorites, plan meals, and unleash your culinary creativity.
-      Cooking made simple and enjoyable!
-    </p>
-    <Link
-      to={'/home'}
-      className="btn"
-      style={{
-        backgroundColor: 'rgb(237, 140, 31)',
-        marginTop: '15px',
-        padding: '0.55rem 2rem',
-        color: 'white',
-        fontSize: '1rem',
-        fontWeight: 'bold',
-        cursor: 'pointer',
-        transition: 'background-color 0.3s ease',
-        width: 'fit-content',
-      }}
-    >
-      Get Started
-    </Link>
-  </div>
+           </div>
+           <div className='popular mt-2'>
+          <h5 style={{ fontSize: '1rem', }} className='pb-3'>Popular Searches</h5>
 
-  <div
-    className="img d-flex justify-content-center align-items-center"
-    style={{
-      height: '100%',
-      flex: 1,
-      position: 'relative',
-      overflow: 'hidden',
-      minWidth: '150px', // Prevent image section from shrinking too much
-    }}
-  >
-    <img
-      src={landing_img}
-      className="img-fluid responsive-img"
-      style={{
-        width: '100%',
-        height: 'auto',
-        position: 'relative',
-        zIndex: 2,
-        marginTop: '100px',
-        marginLeft: '100px',
-        marginBottom: '',
-      }}
-      alt="Landing"
-    />
-  </div>
-</div>
-
-
-<div className='popular' style={{ paddingLeft: '5rem', marginTop:'-200px'}}>
-          <h5 style={{ fontSize: '1rem', }}>Popular Searches</h5>
-
-          <div  className="mt-3 d-flex flex-wrap align-items-center"  style={{ gap: '10px' }}>
+          <div  className=" d-flex flex-wrap align-items-center justify-content-start"  style={{ gap: '10px' }}>
             <button className="btn rounded p-2" style={{  backgroundColor: 'rgb(224, 187, 145)', fontSize: '0.8rem', padding: '0.3rem 0.8rem', display: 'flex',alignItems: 'center',gap: '0.5rem', }}>
               <img src={service1}  className="img-fluid" style={{ width: '16px', height: '16px', borderRadius: '50%' }} alt=""/>{' '}
               Taco Salad
@@ -112,7 +61,14 @@ const Landing = () => {
               <img src={service4} className="img-fluid" style={{ width: '16px', height: '16px', borderRadius: '50%' }} alt=""/>{' '} Tikka Masala Chicken
             </button>
           </div>
-        </div> 
+        </div>  
+        </div>
+
+    </div>
+    
+
+
+
 
       
    </>
