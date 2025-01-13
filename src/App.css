@@ -1,2 +1,74 @@
 
+
+
+
+
+@media (max-width: 768px) {
+    .main {
+      flex-direction: row !important; /* Stack elements vertically */
+    }
+    .header {
+      padding-top: 100px;
+      text-align: justify;
+      
+    }
+    .header-title {
+        padding-top: 10px;
+      font-size: 0.5rem; /* Smaller font for h1 */
+    }
+    .header-description {
+      font-size: 0.1rem; /* Smaller font for p */
+    }
+    .img {
+      flex: unset; /* Allow image to flow in a single column */
+      margin-top: 150px; /* Add spacing between sections */
+    
+    }
+    .responsive-img {
+      width: 100%; /* Ensure the image scales correctly */
+      height: auto;
+      margin: 0 auto;
+    }
+    .popular{
+        padding-top: 150px;
+    }
+  }
+
+  @media (min-width: 769px) {
+    .main {
+      flex-direction: row; /* Default to row on larger screens */
+    }
+    .popular{
+        padding-top: 50px;
+    }
+  }
   
+  @media (max-width: 600px) {
+    .main {
+      flex-direction: row !important; /* Ensure vertical stacking */
+     
+    }
+    .header {
+      padding-top: 150px; /* Adjust padding for smaller screens */
+      text-align: justify;
+    }
+    .header-title {
+      padding-top: 5px;
+      font-size: 5px; /* Further reduce font size for h1 */
+    }
+    .header-description {
+      font-size: 0.08rem; /* Further reduce font size for p */
+    }
+    .img {
+      flex: unset; /* Maintain single-column layout */
+      margin-top: 10px; /* Adjust spacing */
+    }
+    .responsive-img {
+      width: 100%; /* Ensure proper scaling */
+      height: auto;
+      margin: 0 auto;
+    }
+    .popular {
+      padding-top: 250px; /* Adjust padding for popular section */
+    }
+}

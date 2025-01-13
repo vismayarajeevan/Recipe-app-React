@@ -31,9 +31,11 @@ const DisplayCard = ({displayData, setdeleteRecipecard,isInCategory}) => {
       if (isInWishlist) {
         await removeFromFavoriteAPI(displayData.id);
         setIsInWishlist(false);
+        alert("Recipe is removed from favourite")
       } else {
         await addToFavoriteAPI(displayData);
         setIsInWishlist(true);
+        alert("Recipe is added to favourite")
         }
        
       } catch (error) {

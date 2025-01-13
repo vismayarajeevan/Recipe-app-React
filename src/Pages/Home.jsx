@@ -7,7 +7,7 @@ import { Card, Col, Container, Row } from 'react-bootstrap'
 import DisplayCard from '../components/DisplayCard'
 import CategoryDisplay from '../components/CategoryDisplay'
 
-import { showCardAPI } from '../services/allAPI'
+import { saveRecipeAPI, showCardAPI, updateCategoryAPI } from '../services/allAPI'
 import { createAndSaveCategoryAPI  } from '../services/allAPI'
 import { getCategoryAPI  } from '../services/allAPI'
 import { deleteCategoryAPI  } from '../services/allAPI'
@@ -30,13 +30,16 @@ const Home = () => {
   // state to delete from my recipe
   const [deleteResponseFromCategory, setDeleteResponseFromCategory]=useState("")
 
+  // create a state to remove card from categoryview
+  const [deleteResponseFromCategoryView, setDeleteResponseFromCategoryView] = useState("")
+
 
 
   // we need to display cards initially when it already added .so use useeffect 
   useEffect(()=>{
       showCard();
       displayAllCategories()
-    },[addResponse,deleteRecipeCard,deleteResponseFromCategory])
+    },[addResponse,deleteRecipeCard,deleteResponseFromCategory, deleteResponseFromCategoryView])
     
     
     
@@ -113,7 +116,39 @@ const Home = () => {
                  }
               }
 
+      //function to prevent fault during drop card
+      const dragOverView=(e)=>{
+        e.preventDefault()
+      } 
 
+      // function to drop card
+      const categoryCardDragOverView =async(e)=>{
+        console.log("Inside categoryCardDragOverView");
+        // get data by convert it into original form.
+        // we already know the keys , so we can directlt use the keys using destructuring
+        const {recipe, category} = JSON.parse(e.dataTransfer.getData("dragData"))
+        console.log(recipe, category);
+        
+        // 1.updating the category by delete video from category
+         // to delete selected card only
+         const updatedCategoryRecipeList = category?.allRecipes?.filter(item=>item.id!=recipe?.id)  
+        //  update the category by removing the selected card
+         const updateCategory = {...category,allRecipes:updatedCategoryRecipeList}
+         console.log(updateCategory);
+        //  make api call to save it permanently
+        const result = await updateCategoryAPI(updateCategory)
+         
+        // use state lifting to communicate data from home to category
+        setDeleteResponseFromCategoryView(result)
+
+        // use api call to upload and save card
+        await saveRecipeAPI(recipe)
+
+        // call showcard 
+        showCard()
+        
+        
+      }
 
 
   return (
@@ -136,7 +171,7 @@ const Home = () => {
                  <AddRecipe  setAddResponse={setAddResponse}/>
             </div >
 
-            <Row xs={1} sm={2} md={2} lg={2} xl={2}  className='g-3'>
+            <Row droppable="true" onDragOver={dragOverView} onDrop={e=>categoryCardDragOverView(e)} xs={1} sm={2} md={2} lg={2} xl={2}  className='g-3'>
               {
                 allRecipe?.length>0?(
                 allRecipe.map((recipe)=>(
@@ -165,7 +200,7 @@ const Home = () => {
             <div> 
               <Row className='g-4 mb-3'> 
               <Col>
-                <CategoryDisplay getAllCategories={getAllCategories} removeCategory={removeCategory} setDeleteResponseFromCategory={setDeleteResponseFromCategory} /> 
+                <CategoryDisplay  getAllCategories={getAllCategories} removeCategory={removeCategory} setDeleteResponseFromCategory={setDeleteResponseFromCategory} /> 
               </Col>
              </Row>            
             </div>

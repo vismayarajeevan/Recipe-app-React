@@ -5,7 +5,7 @@ import { removeRecipeAPI, updateCategoryAPI } from "../services/allAPI";
 
 
 
-const CategoryDisplay = ({ getAllCategories, removeCategory,setDeleteResponseFromCategory }) => {
+const CategoryDisplay = ({ getAllCategories, removeCategory,setDeleteResponseFromCategory}) => {
 
 // function to remove fault during drop function
 const dragPreventFault =(e)=>{
@@ -61,6 +61,16 @@ const recipeCardDrop = async(e,categoryDropDetails)=>{
     }
   }
 
+  // function to drag card from category
+  const categoryCardDragStart = (e,dragCardDetails,categoryDetails)=>{
+    console.log("Inside Dragstart");
+    // we need to pass 2 datas. so convert it into single object
+    let dragData ={recipe:dragCardDetails, category:categoryDetails}
+    // pass data
+    e.dataTransfer.setData("dragData", JSON.stringify(dragData))
+    
+  }
+
 
   return (
     <>
@@ -86,8 +96,8 @@ const recipeCardDrop = async(e,categoryDropDetails)=>{
                    {
                      category.allRecipes?.length>0? (
                         category.allRecipes.map((recipe, recipeIndex)=>(
-                          // to drop card from my recipes, use event ondrop
-                           <Col  key={recipeIndex} className="mb-5">
+                          // to drag card
+                           <Col draggable={true}  onDragStart={e=>categoryCardDragStart(e,recipe,category)} key={recipeIndex} className="mb-5">
                           <DisplayCard displayData={recipe} deleteRecipeFromCategory={deleteRecipeFromCategory} isInCategory={true}/>
                         </Col>
                         ))
