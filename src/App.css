@@ -1,7 +1,20 @@
+@media (max-width: 1280px) {
+    .popular{
+        padding-top: 180px;
+    }
+    .img {
+        flex: unset; /* Allow image to flow in a single column */
+        margin-top: 80px; /* Add spacing between sections */
+      
+      }
+}
 
-
-
-
+@media (max-width: 1028px) {
+  .popular{
+     padding-top: 250px;
+  }
+ 
+}
 
 @media (max-width: 768px) {
     .main {
@@ -21,7 +34,7 @@
     }
     .img {
       flex: unset; /* Allow image to flow in a single column */
-      margin-top: 150px; /* Add spacing between sections */
+      margin-top: 100px; /* Add spacing between sections */
     
     }
     .responsive-img {
@@ -29,46 +42,64 @@
       height: auto;
       margin: 0 auto;
     }
-    .popular{
-        padding-top: 150px;
-    }
+   
   }
 
   @media (min-width: 769px) {
     .main {
       flex-direction: row; /* Default to row on larger screens */
     }
+    .header {
+        padding-top: 100px;
+        text-align: justify;
+        
+      }
     .popular{
         padding-top: 50px;
     }
   }
-  
-  @media (max-width: 600px) {
+
+@media (max-width: 460px) {
     .main {
-      flex-direction: row !important; /* Ensure vertical stacking */
-     
+      flex-direction: row; /* Keep header and image in a single row */
+      flex-wrap: nowrap; /* Prevent wrapping */
+      align-items: center; /* Align items vertically */
+      justify-content: space-between; /* Add spacing between header and image */
     }
+  
     .header {
-      padding-top: 150px; /* Adjust padding for smaller screens */
-      text-align: justify;
+      flex: 1; /* Allow header to take proportional space */
+      padding-top: 250px;
+      
+      text-align: left; /* Align text to the left */
+      max-width: 50%; /* Restrict width to 50% of the row */
     }
-    .header-title {
-      padding-top: 5px;
-      font-size: 5px; /* Further reduce font size for h1 */
+  
+    .main .header-title {
+      font-size: 0.5rem; /* Smaller font size for title */
+      margin-bottom: 0.5rem; /* Add spacing below title */
     }
+  
     .header-description {
-      font-size: 0.08rem; /* Further reduce font size for p */
+      font-size: 0.5rem; /* Smaller font size for description */
+      margin-bottom: 1rem; /* Add spacing below description */
     }
+  
     .img {
-      flex: unset; /* Maintain single-column layout */
-      margin-top: 10px; /* Adjust spacing */
+      flex: 1; /* Allow image to take proportional space */
+      display: flex; /* Use flexbox for alignment */
+      justify-content: center; /* Center the image horizontally */
+      align-items: center; 
+      max-width: 50%; 
+      margin: 0; 
     }
+  
     .responsive-img {
-      width: 100%; /* Ensure proper scaling */
-      height: auto;
-      margin: 0 auto;
+      max-width: 100%;
+      height: auto; 
     }
-    .popular {
-      padding-top: 250px; /* Adjust padding for popular section */
+    .popular { 
+         padding-top: 300px; 
     }
-}
+  }
+  

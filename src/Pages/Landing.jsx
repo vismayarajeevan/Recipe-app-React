@@ -16,26 +16,15 @@ const Landing = () => {
    <>
      
 
-<div
-  className="main min-vh-100 d-flex flex-column flex-md-row"
-  style={{
-   
-    position: 'relative',
-    flexWrap: 'wrap', // Allows wrapping if needed
-  }}
->
-  <div
-    className="header d-flex flex-column justify-content-center"
-    style={{
-      flex: 1,
-      paddingLeft: '5rem',
-      marginTop: '-180px',
+
+
+<div className="main min-vh-100 d-flex flex-column flex-md-row" style={{  position: 'relative', flexWrap: 'wrap',overflow: 'hidden' }}>
+  <div className="header d-flex flex-column justify-content-center" style={{flex: 1,paddingLeft: '5rem',marginTop:'-200px',
       minWidth: '300px', // Ensure the header doesn't shrink too much
     }}
   >
-    <ChefHat
-      className="mb-2"
-      style={{ width: '64px', height: '64px', color: 'rgb(237, 140, 31)' }}
+    <ChefHat className="mb-2"
+      style={{ width: '64px', height: '64px', color: 'rgb(237, 140, 31)', }}
     />
     <h1 className="header-title" style={{ fontSize: '2rem', fontWeight: 'bold' }}>Recipe Master</h1>
     <p
@@ -78,7 +67,7 @@ const Landing = () => {
       flex: 1,
       position: 'relative',
       overflow: 'hidden',
-      minWidth: '300px', // Prevent image section from shrinking too much
+      minWidth: '150px', // Prevent image section from shrinking too much
     }}
   >
     <img
@@ -89,17 +78,18 @@ const Landing = () => {
         height: 'auto',
         position: 'relative',
         zIndex: 2,
-        marginTop: '80px',
+        marginTop: '100px',
         marginLeft: '100px',
-        marginBottom: '1px',
+        marginBottom: '',
       }}
       alt="Landing"
     />
   </div>
 </div>
 
-<div className='popular' style={{ paddingLeft: '5rem', }}>
-          <h5 style={{ fontSize: '1rem',marginTop: '-220px' }}>Popular Searches</h5>
+
+<div className='popular' style={{ paddingLeft: '5rem', marginTop:'-200px'}}>
+          <h5 style={{ fontSize: '1rem', }}>Popular Searches</h5>
 
           <div  className="mt-3 d-flex flex-wrap align-items-center"  style={{ gap: '10px' }}>
             <button className="btn rounded p-2" style={{  backgroundColor: 'rgb(224, 187, 145)', fontSize: '0.8rem', padding: '0.3rem 0.8rem', display: 'flex',alignItems: 'center',gap: '0.5rem', }}>
